@@ -1,0 +1,82 @@
+#contact manager
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+struct Contact {
+    string name;
+    string phone;
+    string email;
+};
+
+vector<Contact> contacts;
+
+void addContact() {
+    Contact newContact;
+    cout << "Enter Name: ";
+    cin >> newContact.name;
+    cout << "Enter Phone Number: ";
+    cin >> newContact.phone;
+    cout << "Enter Email: ";
+    cin >> newContact.email;
+    contacts.push_back(newContact);
+    cout << "Contact added successfully!\n";
+}
+
+void viewContacts() {
+    cout << "Contact List:\n";
+    for (size_t i = 0; i < contacts.size(); i++) {
+        cout << i + 1 << ". " << contacts[i].name << ", " << contacts[i].phone << ", " << contacts[i].email << "\n";
+    }
+}
+
+void editContact() {
+    int index;
+    cout << "Enter the contact number to edit: ";
+    cin >> index;
+    if (index > 0 && index <= contacts.size()) {
+        cout << "Editing contact #" << index << "\n";
+        cout << "Enter new Name: ";
+        cin >> contacts[index - 1].name;
+        cout << "Enter new Phone Number: ";
+        cin >> contacts[index - 1].phone;
+        cout << "Enter new Email: ";
+        cin >> contacts[index - 1].email;
+        cout << "Contact updated successfully!\n";
+    } else {
+        cout << "Invalid contact number.\n";
+    }
+}
+
+void deleteContact() {
+    int index;
+    cout << "Enter the contact number to delete: ";
+    cin >> index;
+    if (index > 0 && index <= contacts.size()) {
+        contacts.erase(contacts.begin() + index - 1);
+        cout << "Contact deleted successfully!\n";
+    } else {
+        cout << "Invalid contact number.\n";
+    }
+}
+
+int main() {
+    int choice;
+    do {
+        cout << "1. Add Contact\n2. View Contacts\n3. Edit Contact\n4. Delete Contact\n5. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: addContact(); break;
+            case 2: viewContacts(); break;
+            case 3: editContact(); break;
+            case 4: deleteContact(); break;
+            case 5: cout << "Exiting...\n"; break;
+            default: cout << "Invalid choice. Try again.\n";
+        }
+    } while (choice != 5);
+
+    return 0;
+}
